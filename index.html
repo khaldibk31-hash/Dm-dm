@@ -414,6 +414,8 @@ async function unlockAdmin() {
 }
 
 async function loginAdmin() {
+if (!sb) sb = supabase.createClient(SB_URL, SB_KEY);
+
   const email = document.getElementById("adm-email").value.trim();
   const password = document.getElementById("adm-pass").value;
   const { error } = await sb.auth.signInWithPassword({ email, password });
