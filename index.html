@@ -266,6 +266,78 @@
           </div>
         </div>
       </div>
+            <!-- قسم 3: القبعة المنفردة -->
+      <div class="sec-block" id="sec-cap">
+        <div class="sec-hdr">
+          <h3 data-edit="1">3. قسم القبعة المنفردة</h3>
+          <button class="btn-gold edit-tool" onclick="openProdModal('sec-cap')">+ إضافة موديل</button>
+        </div>
+        <div class="branch-tabs">
+          <button class="tab-pill active" onclick="filterBranch(this,'sec-cap','all')">الكل</button>
+          <button class="tab-pill" onclick="filterBranch(this,'sec-cap','Forme V')">Forme V</button>
+          <button class="tab-pill" onclick="filterBranch(this,'sec-cap','Forme Simple')">Forme Simple</button>
+          <button class="tab-pill" onclick="filterBranch(this,'sec-cap','Cristal')">Cristal</button>
+        </div>
+        <div class="prod-grid">
+          <div class="p-card" data-branch="Forme V">
+            <button class="del-btn edit-tool" onclick="this.closest('.p-card').remove()">×</button>
+            <div class="img-wrap"><span>🎓</span><button class="chg-img-btn edit-tool" onclick="triggerCardImg(this)">+ صورة</button></div>
+            <div class="p-body">
+              <span class="p-tag" data-edit="1">Forme V</span>
+              <h4 class="p-title" data-edit="1">قبعة تخرج مخصصة</h4>
+              <p style="font-size:0.82rem;color:var(--muted);margin-bottom:8px;" data-edit="1">اختر الشكل واللون ومقاس دائرة الرأس بدقة.</p>
+                       <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+                <div class="swatches" style="margin-top:0;flex-wrap:wrap;gap:6px;max-width:165px;">
+                  <div class="swatch" style="width:20px;height:20px;background:#111" title="أسود" onclick="selectCapColor(this,'أسود')"></div>
+                  <div class="swatch" style="width:20px;height:20px;background:#7f1d1d" title="بورغندي" onclick="selectCapColor(this,'بورغندي')"></div>
+                  <div class="swatch" style="width:20px;height:20px;background:#1e3a8a" title="كحلي" onclick="selectCapColor(this,'كحلي')"></div>
+                  <div class="swatch" style="width:20px;height:20px;background:#064e3b" title="أخضر ملكي" onclick="selectCapColor(this,'أخضر ملكي')"></div>
+                  <div class="swatch" style="width:20px;height:20px;background:#f5f5f4" title="أبيض" onclick="selectCapColor(this,'أبيض')"></div>
+                  <div class="swatch" style="width:20px;height:20px;background:#d97706" title="ذهبي" onclick="selectCapColor(this,'ذهبي')"></div>
+                  <div class="swatch" style="width:20px;height:20px;background:#db2777" title="وردي" onclick="selectCapColor(this,'وردي')"></div>
+                  <div class="swatch" style="width:20px;height:20px;background:#581c87" title="بنفسجي" onclick="selectCapColor(this,'بنفسجي')"></div>
+                  <div class="swatch" style="width:20px;height:20px;background:#d6d3d1" title="رمادي فاتح" onclick="selectCapColor(this,'رمادي فاتح')"></div>
+                </div>
+                <input type="number" class="cap-size-in" placeholder="محيط الرأس سم (اختياري)" style="width:125px;padding:6px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.75rem;background:var(--bg);color:var(--text);">
+              </div>
+
+              <div class="p-opts">
+                <select onchange="updateCardPrice(this)">
+                  <option value="1500">Forme Simple (1,500 دج)</option>
+                  <option value="1800">Forme V (1,800 دج)</option>
+                  <option value="2200">Cristal (2,200 دج)</option>
+                </select>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <b class="price" style="color:var(--accent);" data-edit="1">1500 دج</b>
+                <button class="btn-gold" style="padding:6px 14px; font-size:0.8rem;" onclick="addCart(this)">أضف للسلة</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- قسم 4: ورد وإكسسوارات -->
+      <div class="sec-block" id="sec-acc">
+        <div class="sec-hdr">
+          <h3 data-edit="1">4. قسم الورد والإكسسوارات</h3>
+          <button class="btn-gold edit-tool" onclick="openProdModal('sec-acc')">+ إضافة موديل</button>
+        </div>
+        <div class="prod-grid">
+          <div class="p-card" data-branch="ورد">
+            <button class="del-btn edit-tool" onclick="this.closest('.p-card').remove()">×</button>
+            <div class="img-wrap"><span>💐</span><button class="chg-img-btn edit-tool" onclick="triggerCardImg(this)">+ صورة</button></div>
+            <div class="p-body">
+              <span class="p-tag" data-edit="1">ورد وإكسسوارات</span>
+              <h4 class="p-title" data-edit="1">باقة ورد التخرج المخصصة</h4>
+              <p style="font-size:0.82rem;color:var(--muted);margin-bottom:8px;" data-edit="1">تنسيق ورد طبيعي أو صناعي فاخر ليوم التخرج.</p>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <b class="price" style="color:var(--accent);" data-edit="1">1500 دج</b>
+                <button class="btn-gold" style="padding:6px 14px; font-size:0.8rem;" onclick="addCart(this)">أضف للسلة</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- استوديو التصميم التفاعلي -->
       <div id="studio-sec" class="sec-head">
@@ -390,7 +462,7 @@ window.addEventListener("load", async () => {
 sb = supabase.createClient(SB_URL, SB_KEY);
 
   const { data } = await sb.from("store_data").select("*").eq("id", 1).single();
-  if (data && data.html_content) document.getElementById("editable-main").innerHTML = data.html_content;
+  // (data && data.html_content) document.getElementById("editable-main").innerHTML = data.html_content;
   if (data && data.logo_url) { const l = document.getElementById("site-logo"); l.src = data.logo_url; l.style.display = "block"; }
   const { data: { session } } = await sb.auth.getSession();
   if (session) enableAdminUI();
@@ -440,6 +512,11 @@ async function publishToCloud() {
   const { error } = await sb.from("store_data").upsert({ id: 1, html_content, logo_url });
   enableAdminUI(); btn.innerText = "☁ حفظ ونشر";
   if (error) alert("❌ فشل الحفظ: " + error.message); else alert("✅ تم الحفظ والنشر بنجاح!");
+}
+function selectCapColor(el, colorName) {
+  el.parentElement.querySelectorAll(".swatch").forEach(s => s.style.outline = "none");
+  el.style.outline = "2.5px solid var(--accent)";
+  el.closest(".p-card").dataset.capColor = colorName;
 }
 
 
@@ -529,7 +606,13 @@ async function publishToCloud() {
       const t = c.querySelector(".p-title").innerText;
       const opts = Array.from(c.querySelectorAll("select")).map(function(s) { return s.options[s.selectedIndex].text; }).join(" - ");
       const p = parseInt(c.querySelector(".price").innerText.replace(/[^\d]/g, "")) || 0;
-      cart.push({ title: opts ? t + " (" + opts + ")" : t, price: p });
+const capCol = c.dataset.capColor ? " | لون: " + c.dataset.capColor : "";
+const sizeIn = c.querySelector(".cap-size-in");
+
+const capSize = (sizeIn && sizeIn.value.trim()) ? " | مقاس الرأس: " + sizeIn.value.trim() + " سم" : "";
+cart.push({ title: (opts ? t + " (" + opts + ")" : t) + capCol + capSize, price: p });
+
+
       document.getElementById("c-cnt").innerText = cart.length;
       alert("تمت الإضافة للسلة 🛍");
     }
