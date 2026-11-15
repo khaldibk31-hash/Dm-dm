@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DG by douaa | شال وروب وقبعة التخرج في الجزائر</title>
 <script>
-  const s = document.createElement('script');
-  s.src = 'https://unpkg.com' + String.fromCharCode(64) + 'supabase/supabase-js' + String.fromCharCode(64) + '2';
-  document.head.appendChild(s);
+  document.write('<scr' + 'ipt src="https:' + '//cdn.jsdelivr.net/npm/' + String.fromCharCode(64) + 'supabase/supabase-js' + String.fromCharCode(64) + '2"></scr' + 'ipt>');
 </script>
+
+
 
 
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -366,7 +366,7 @@
 <div class="modal" id="login-modal">
   <div class="m-box">
     <h3 style="margin-bottom:10px; color:var(--accent);">🔐 دخول الإدارة</h3>
-    <input type="email" id="adm-email" placeholder="البريد الإلكتروني">
+
     <input type="password" id="adm-pass" placeholder="كلمة السر">
     <div class="m-btns">
       <button onclick="loginAdmin()" class="btn-gold">دخول</button>
@@ -405,7 +405,7 @@ function enableAdminUI() {
 
 async function unlockAdmin() {
   if (document.body.classList.contains("admin-mode")) {
-    await sb.auth.signOut();
+    
     document.body.classList.remove("admin-mode");
     document.querySelectorAll("[contenteditable]").forEach(el => el.removeAttribute("contenteditable"));
     return alert("🔒 تم قفل وضع الإدارة.");
@@ -414,14 +414,23 @@ async function unlockAdmin() {
 }
 
 async function loginAdmin() {
-if (!sb) sb = supabase.createClient(SB_URL, SB_KEY);
-
-  const email = document.getElementById("adm-email").value.trim();
-  const password = document.getElementById("adm-pass").value;
-  const { error } = await sb.auth.signInWithPassword({ email, password });
-  if (error) return alert("❌ خطأ: " + error.message);
-  closeAll(); enableAdminUI(); alert("🔓 مرحباً بك في وضع التعديل!");
+  try {
+    if (!sb) sb = window.supabase.createClient(SB_URL, SB_KEY);
+    const pass = document.getElementById("adm-pass").value;
+    const { data, error } = await sb.from("admin_settings").select("pass").eq("id", 1).single();
+    if (error) return alert("خطأ اتصال: " + error.message);
+    if (data && data.pass === pass) {
+      closeAll();
+      enableAdminUI();
+      alert("🔓 تم فتح وضع التعديل!");
+    } else {
+      alert("❌ كلمة السر غير صحيحة!");
+    }
+  } catch (e) {
+    alert("خطأ: " + e.message);
+  }
 }
+
 
 async function publishToCloud() {
   const btn = document.getElementById("save-cloud-btn"); btn.innerText = "جاري الحفظ...";
