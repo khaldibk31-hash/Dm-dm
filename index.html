@@ -4,6 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DG by douaa | شال وروب وقبعة التخرج في الجزائر</title>
+<script>
+  const s = document.createElement('script');
+  s.src = 'https://unpkg.com' + String.fromCharCode(64) + 'supabase/supabase-js' + String.fromCharCode(64) + '2';
+  document.head.appendChild(s);
+</script>
+
+
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -132,7 +139,7 @@
   <input type="file" id="studio-img-in" accept="image/*" style="display:none" onchange="setStudioImg(event)">
 
   <!-- زر واتساب عائم للتواصل السريع -->
-  <a href="https://wa.me/213600000000" target="_blank" class="float-wa" title="تواصل عبر الواتساب">💬</a>
+  <a href="https://wa.me/213673423172" target="_blank" class="float-wa" title="تواصل عبر الواتساب">💬</a>
 
   <header>
     <div class="brand-wrap">
@@ -147,12 +154,11 @@
       <a href="#prices-sec">الأسعار</a>
     </nav>
     <div class="hdr-actions">
-      <button class="btn-green edit-tool" id="save-cloud-btn" onclick="saveToCloud()">☁️ حفظ ونشر</button>
+    <button id="save-cloud-btn" class="btn-green edit-tool" onclick="publishToCloud()">☁ حفظ ونشر</button>
+
       <button class="btn-gold" onclick="openCart()">🛍 السلة (<span id="c-cnt">0</span>)</button>
     </div>
   </header>
-
-  <div id="sync-bar" style="text-align:center;font-size:0.75rem;color:var(--muted);padding:4px;background:var(--surface);">⏳ جاري تحميل المتجر...</div>
 
   <div id="editable-main">
     <section class="hero">
@@ -357,73 +363,74 @@
       </div>
     </div>
   </div>
+<div class="modal" id="login-modal">
+  <div class="m-box">
+    <h3 style="margin-bottom:10px; color:var(--accent);">🔐 دخول الإدارة</h3>
+    <input type="email" id="adm-email" placeholder="البريد الإلكتروني">
+    <input type="password" id="adm-pass" placeholder="كلمة السر">
+    <div class="m-btns">
+      <button onclick="loginAdmin()" class="btn-gold">دخول</button>
+      <button onclick="closeAll()" class="btn-dark">إلغاء</button>
+    </div>
+  </div>
+</div>
 
   <script>
-    const CLOUD_URL = "https://npoint.io";
-    const ADMIN_PASS = "2026";
+    
     let curSec = "", activeCard = null, cart = [], stoleColorName = "أسود";
     const MY_WHATSAPP = "213600000000"; // استبدل هذا برقم هاتفك الحقيقي
 
-    async function loadCloud() {
-      const bar = document.getElementById("sync-bar");
-      try {
-        const res = await fetch(CLOUD_URL + "?t=" + Date.now());
-        const data = await res.json();
-        if (data && data.html) {
-          document.getElementById("editable-main").innerHTML = data.html;
-          if (data.logo) {
-            const l = document.getElementById("site-logo");
-            l.src = data.logo; l.style.display = "block";
-          }
-          if (data.brand) document.querySelector(".brand").innerText = data.brand;
-        }
-      } catch (e) {}
-      if (bar) bar.style.display = "none";
-    }
+    
+      const SB_URL = "https://" + "rcvtbmymewzrfrlabsbv.supabase.co";
 
-    function unlockAdmin() {
-      if (document.body.classList.contains("admin-mode")) {
-        document.body.classList.remove("admin-mode");
-        document.querySelectorAll("[data-edit='1']").forEach(function(el) { el.removeAttribute("contenteditable"); });
-        return alert("🔒 تم قفل وضع التعديل.");
-      }
-      const p = prompt("أدخل كلمة سر الإدارة:");
-      if (p === ADMIN_PASS) {
-        document.body.classList.add("admin-mode");
-        document.querySelectorAll("[data-edit='1']").forEach(function(el) { el.setAttribute("contenteditable", "true"); });
-        alert("🔓 تم فتح وضع التعديل!");
-      } else if (p !== null) {
-        alert("كلمة السر غير صحيحة!");
-      }
-    }
+const SB_KEY = "sb_publishable_LkDqEApbom-4E66DdiZQag_VYA2gyWr";
+let sb = null;
 
-    async function saveToCloud() {
-      const btn = document.getElementById("save-cloud-btn");
-      btn.innerText = "⏳ جاري النشر...";
-      closeAll();
-      document.querySelectorAll("[data-edit='1']").forEach(function(el) { el.removeAttribute("contenteditable"); });
-      const payload = {
-        html: document.getElementById("editable-main").innerHTML,
-        logo: document.getElementById("site-logo").src || "",
-        brand: document.querySelector(".brand").innerText
-      };
-      try {
-        const res = await fetch(CLOUD_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-        if (res.ok) {
-          alert("✅ تم حفظ ونشر التعديلات بنجاح!");
-        } else {
-          alert("حدث خطأ أثناء الحفظ.");
-        }
-      } catch (e) {
-        alert("تعذر الاتصال بالسحابة.");
-      }
-      document.querySelectorAll("[data-edit='1']").forEach(function(el) { el.setAttribute("contenteditable", "true"); });
-      btn.innerText = "☁️ حفظ ونشر";
-    }
+window.addEventListener("load", async () => {
+sb = supabase.createClient(SB_URL, SB_KEY);
+
+  const { data } = await sb.from("store_data").select("*").eq("id", 1).single();
+  if (data && data.html_content) document.getElementById("editable-main").innerHTML = data.html_content;
+  if (data && data.logo_url) { const l = document.getElementById("site-logo"); l.src = data.logo_url; l.style.display = "block"; }
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) enableAdminUI();
+});
+
+function enableAdminUI() {
+  document.body.classList.add("admin-mode");
+  document.querySelectorAll("#editable-main h1, #editable-main h2, #editable-main h3, #editable-main h4, #editable-main p, #editable-main span, #editable-main b, #editable-main td, #editable-main summary").forEach(el => {
+    if (!el.querySelector("button, select, input")) el.setAttribute("contenteditable", "true");
+  });
+}
+
+async function unlockAdmin() {
+  if (document.body.classList.contains("admin-mode")) {
+    await sb.auth.signOut();
+    document.body.classList.remove("admin-mode");
+    document.querySelectorAll("[contenteditable]").forEach(el => el.removeAttribute("contenteditable"));
+    return alert("🔒 تم قفل وضع الإدارة.");
+  }
+  document.getElementById("login-modal").style.display = "flex";
+}
+
+async function loginAdmin() {
+  const email = document.getElementById("adm-email").value.trim();
+  const password = document.getElementById("adm-pass").value;
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  if (error) return alert("❌ خطأ: " + error.message);
+  closeAll(); enableAdminUI(); alert("🔓 مرحباً بك في وضع التعديل!");
+}
+
+async function publishToCloud() {
+  const btn = document.getElementById("save-cloud-btn"); btn.innerText = "جاري الحفظ...";
+  document.querySelectorAll("[contenteditable]").forEach(el => el.removeAttribute("contenteditable"));
+  const html_content = document.getElementById("editable-main").innerHTML;
+  const logo_url = document.getElementById("site-logo").src || "";
+  const { error } = await sb.from("store_data").upsert({ id: 1, html_content, logo_url });
+  enableAdminUI(); btn.innerText = "☁ حفظ ونشر";
+  if (error) alert("❌ فشل الحفظ: " + error.message); else alert("✅ تم الحفظ والنشر بنجاح!");
+}
+
 
     function setStoleColor(bg, txt) {
       const box = document.getElementById("stole-box");
@@ -461,13 +468,6 @@
       const f = e.target.files[0]; if (!f || !activeCard) return;
       comp(f, 380, (res) => {
         activeCard.querySelector(".img-wrap").innerHTML = `<img src="${res}" class="p-img"><button class="chg-img-btn edit-tool" onclick="triggerCardImg(this)">+ صورة</button>`;
-      });
-    }
-
-    function setStudioImg(e) {
-      const f = e.target.files[0]; if (!f) return;
-      comp(f, 400, (res) => {
-        document.getElementById("studio-preview").innerHTML = `<img src="${res}" style="width:100%;max-height:240px;object-fit:contain;border-radius:10px;"><button type="button" class="btn-dark edit-tool" style="margin-top:8px;" onclick="document.getElementById('studio-img-in').click()">+ تغيير الصورة</button>`;
       });
     }
 
@@ -556,8 +556,6 @@
       const waUrl = `https://wa.me/${MY_WHATSAPP}?text=${msg}`;
       window.open(waUrl, '_blank');
     }
-
-    loadCloud();
   </script>
 </body>
 </html>
