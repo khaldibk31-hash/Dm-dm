@@ -13,24 +13,26 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #0b0f19;          /* خلفية داكنة فخمة وعميقة */
-      --surface: #111827;     /* لون البطاقات والعناصر */
-      --surface-hover: #1f2937;
-      --text: #f9fafb;        /* نص أبيض ناصع واضح */
-      --muted: #9ca3af;       /* رمادي هادئ للنصوص الثانوية */
-      --border: #374151;      /* حدود خفيفة */
-      --accent: #f59e0b;      /* لون ذهبي فاخر للعناوين والأزرار البارزة */
-      --accent-hover: #d97706;
-      --green: #22c55e;
-    }
+:root {
+  --bg: #fffafb;            /* خلفية بيضاء لؤلؤية ناعمة */
+  --surface: #ffffff;       /* لون البطاقات أبيض ناصع */
+  --surface-hover: #fff0f5; /* وردي فاتح جداً عند التمرير */
+  --text: #2d1b24;          /* نص داكن واضح وأنيق */
+  --muted: #7a5c68;         /* رمادي وردي للنصوص الثانوية */
+  --border: #f8d7e3;        /* حدود وردية ناعمة */
+  --accent: #e11d74;        /* وردي مخملي فاخر للعناوين والأزرار */
+  --accent-hover: #be123c;  /* وردي داكن عند الضغط */
+  --green: #16a34a;
+}
+
+      
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); line-height: 1.65; }
 
     /* الهيدر العلوي */
     header {
-      position: sticky; top: 0; z-index: 100; background: rgba(11, 15, 25, 0.9);
+      position: sticky; top: 0; z-index: 100; background: rgba(255, 250, 251, 0.92);
       backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
       padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
     }
