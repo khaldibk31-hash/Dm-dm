@@ -272,12 +272,7 @@
           <h3 data-edit="1">3. قسم القبعة المنفردة</h3>
           <button class="btn-gold edit-tool" onclick="openProdModal('sec-cap')">+ إضافة موديل</button>
         </div>
-        <div class="branch-tabs">
-          <button class="tab-pill active" onclick="filterBranch(this,'sec-cap','all')">الكل</button>
-          <button class="tab-pill" onclick="filterBranch(this,'sec-cap','Forme V')">Forme V</button>
-          <button class="tab-pill" onclick="filterBranch(this,'sec-cap','Forme Simple')">Forme Simple</button>
-          <button class="tab-pill" onclick="filterBranch(this,'sec-cap','Cristal')">Cristal</button>
-        </div>
+        
         <div class="prod-grid">
           <div class="p-card" data-branch="Forme V">
             <button class="del-btn edit-tool" onclick="this.closest('.p-card').remove()">×</button>
@@ -301,13 +296,7 @@
                 <input type="number" class="cap-size-in" placeholder="محيط الرأس سم (اختياري)" style="width:125px;padding:6px 8px;border-radius:6px;border:1px solid var(--border);font-size:0.75rem;background:var(--bg);color:var(--text);">
               </div>
 
-              <div class="p-opts">
-                <select onchange="updateCardPrice(this)">
-                  <option value="1500">Forme Simple (1,500 دج)</option>
-                  <option value="1800">Forme V (1,800 دج)</option>
-                  <option value="2200">Cristal (2,200 دج)</option>
-                </select>
-              </div>
+              
               <div style="display:flex;justify-content:space-between;align-items:center;">
                 <b class="price" style="color:var(--accent);" data-edit="1">1500 دج</b>
                 <button class="btn-gold" style="padding:6px 14px; font-size:0.8rem;" onclick="addCart(this)">أضف للسلة</button>
